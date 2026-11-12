@@ -1,0 +1,14 @@
+.venv/
+__pycache__/
+.env
+.DS_Store
+.claude/
+node_modules/
+.wrangler/
+.dev.vars
+test-results/
+playwright-report/
+e2e/.fixture-data.json
+.pytest_cache/
+data/
+site/data.json

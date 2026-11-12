@@ -1,0 +1,58 @@
+name: daily
+
+on:
+  schedule:
+    - cron: "17 11 * * *"
+  workflow_dispatch:
+
+concurrency:
+  group: market-watch
+  cancel-in-progress: false
+
+jobs:
+  collect:
+    # DRAMeXchange's terms forbid republishing its prices, and this job commits
+    # them to data/. Only ever run it in a private repository.
+    if: github.event.repository.private
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    env:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Collect
+        env:
+          FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
+        run: python collect.py
+      - name: Build
+        run: python build.py
+      - name: Commit data
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data site/data.json
+          if git diff --cached --quiet; then
+            echo "No changes"
+          else
+            git commit -m "data: $(date -u +%Y-%m-%d)"
+            git push
+          fi
+      # Pushes made with GITHUB_TOKEN don't trigger other workflows, so the
+      # fresh data.json is deployed from here.
+      - uses: actions/setup-node@v4
+        if: env.CLOUDFLARE_API_TOKEN != ''
+        with:
+          node-version: 22
+          cache: npm
+      - name: Deploy to Cloudflare
+        if: env.CLOUDFLARE_API_TOKEN != ''
+        run: |
+          npm ci
+          npx wrangler deploy

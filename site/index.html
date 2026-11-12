@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="color-scheme" content="light dark" />
+    <title>Market Watch</title>
+    <meta name="description" content="What's likely to change price soon, based on what raw materials already did." />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="preload" href="/fonts/instrument-serif-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="/styles.css" />
+    <script src="/vendor/chart.umd.min.js" defer></script>
+    <script src="/vendor/chartjs-adapter-date-fns.bundle.min.js" defer></script>
+    <script src="/app.js" type="module"></script>
+  </head>
+  <body>
+    <div class="wrap">
+      <header class="masthead">
+        <a class="brand" href="/">
+          <svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="8" fill="#1b2430"/><path d="M5 22c4 0 5-12 10-12s5 7 12 7" fill="none" stroke="#7c9bff" stroke-width="2.6" stroke-linecap="round"/><path d="M5 25c5 0 7-6 11-6s6 3 11 3" fill="none" stroke="#f2b83a" stroke-width="2.6" stroke-linecap="round"/></svg>
+          Market Watch
+        </a>
+        <span class="stamp" id="updated" aria-live="polite">Loading…</span>
+      </header>
+
+      <section class="hero" aria-labelledby="hero-title">
+        <h1 id="hero-title">Reading the raw-material prices…</h1>
+        <p id="hero-detail">Store prices usually follow what raw materials already did. This page tracks that lag.</p>
+        <div class="key" aria-label="Chart key">
+          <span><span class="swatch s1"></span>Upstream driver</span>
+          <span><span class="swatch s2"></span>Store price</span>
+          <span><span class="swatch s3"></span>Other context</span>
+        </div>
+      </section>
+
+      <nav class="filters" id="filters" aria-label="Filter by group"></nav>
+
+      <main id="buckets">
+        <div class="skeleton" aria-hidden="true"></div>
+      </main>
+
+      <details class="how">
+        <summary>How this works</summary>
+        <p>
+          Store prices usually follow raw-material prices with a delay: chips to computers, cattle to beef, crude to
+          gas. For each pair, the builder looks at up to 20 years of monthly history and measures how much of an
+          upstream move reaches the store price and how many months it takes. Upstream moves that have already
+          happened, but haven’t reached stores yet, become the forecast for the next few months, assuming upstream
+          stays where it is now.
+        </p>
+        <p>
+          Each forecast is also checked against the past: the model is refit using only data available at the time and
+          scored on what stores actually did next. Pairs where that check fails are listed as “no reliable signal”
+          instead of getting a number. Prices are US averages in USD. This is a heads-up, not a guarantee, and not
+          investment advice.
+        </p>
+      </details>
+
+      <footer class="footer">
+        <nav aria-label="Footer">
+          <a href="/privacy">Privacy policy</a>
+          <a href="https://github.com/waleedrizwan/market-watch-oss" rel="noopener">Source code (MIT)</a>
+        </nav>
+        <p>
+          Data: FRED (Federal Reserve Bank of St. Louis), U.S. Bureau of Labor Statistics, Yahoo Finance and
+          DRAMeXchange (TrendForce), collected once a day for personal use.
+        </p>
+      </footer>
+    </div>
+
+    <template id="card-template">
+      <article class="card">
+        <div class="card-top">
+          <h3 data-title></h3>
+          <span class="group" data-group></span>
+        </div>
+        <div class="big" data-big hidden><span data-big-value></span><small data-big-note></small></div>
+        <p class="headline" data-headline></p>
+        <p class="reason" data-reason></p>
+        <p class="reason" data-gap hidden></p>
+        <p class="meta" data-track hidden></p>
+        <ul class="stale-list" data-stale hidden></ul>
+        <button type="button" class="toggle" aria-expanded="false" data-toggle>Show chart</button>
+        <div class="detail" data-detail hidden></div>
+      </article>
+    </template>
+  </body>
+</html>

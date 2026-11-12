@@ -1,0 +1,17 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "market-watch",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-11-01",
+  "observability": { "enabled": true },
+  // site/ is the static dashboard that build.py writes data.json into.
+  // Every request (data.json included) passes through the Worker first so the
+  // Cloudflare Access check covers the whole site.
+  "assets": {
+    "directory": "./site",
+    "binding": "ASSETS",
+    "run_worker_first": true
+  }
+  // ACCESS_TEAM_DOMAIN and ACCESS_AUD are Worker secrets (wrangler secret put),
+  // so deploys never reset them. See README → "Lock it down".
+}

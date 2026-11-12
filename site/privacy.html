@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <title>Privacy policy · Market Watch</title>
+    <meta name="description" content="Market Watch collects no personal data from visitors: no analytics, no tracking cookies, no third-party requests." />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="wrap">
+      <header class="masthead">
+        <a class="brand" href="/">
+          <svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="8" fill="#1b2430"/><path d="M5 22c4 0 5-12 10-12s5 7 12 7" fill="none" stroke="#7c9bff" stroke-width="2.6" stroke-linecap="round"/><path d="M5 25c5 0 7-6 11-6s6 3 11 3" fill="none" stroke="#f2b83a" stroke-width="2.6" stroke-linecap="round"/></svg>
+          Market Watch
+        </a>
+      </header>
+
+      <main class="prose">
+        <h1>Privacy policy</h1>
+        <p class="updated">Last updated 12 November 2026</p>
+
+        <p class="lede">
+          Market Watch is a personal, non-commercial dashboard of public market prices. It doesn’t track you, doesn’t
+          run analytics or ads, and doesn’t sell or share anything about you.
+        </p>
+
+        <h2>What this site collects from you</h2>
+        <p>Nothing beyond what’s needed to serve the page and check that you’re allowed to see it:</p>
+        <ul>
+          <li>No analytics, advertising, fingerprinting or tracking pixels.</li>
+          <li>
+            No requests to other websites. Fonts, scripts and charts are served from this site, so your browser never
+            contacts a CDN, Google Fonts or a data provider while you use it.
+          </li>
+          <li>
+            One preference is kept in your browser’s local storage: the product group you last filtered by. It never
+            leaves your device, and clearing your site data removes it.
+          </li>
+        </ul>
+
+        <h2>Signing in</h2>
+        <p>
+          The dashboard is private to its owner and protected by
+          <a href="https://www.cloudflare.com/zero-trust/products/access/" rel="noopener">Cloudflare Access</a>.
+          When you sign in, Cloudflare handles the login (for example, emailing you a one-time code) and sets a
+          <code>CF_Authorization</code> cookie so you stay signed in. That cookie is strictly necessary for access
+          control and isn’t used for tracking.
+        </p>
+        <p>
+          The site receives your email address inside a signed token, only to confirm you’re allowed in. It isn’t
+          stored or logged by this site.
+        </p>
+
+        <h2>Hosting and logs</h2>
+        <p>
+          The site runs on Cloudflare Workers. Like any web host, Cloudflare processes technical data such as your IP
+          address, browser type and the pages requested in order to deliver and protect the site. Short-lived error
+          and request logs are kept by Cloudflare to help debug the service and are deleted automatically. See
+          <a href="https://www.cloudflare.com/privacypolicy/" rel="noopener">Cloudflare’s privacy policy</a>.
+        </p>
+
+        <h2>Data the site does collect</h2>
+        <p>
+          Once a day, a scheduled job fetches public prices from FRED (Federal Reserve Bank of St. Louis), the U.S.
+          Bureau of Labor Statistics, Yahoo Finance and DRAMeXchange, and keeps them in a private repository. These are
+          market prices, not personal data. Links to those sources follow their own privacy policies.
+        </p>
+
+        <h2>Children</h2>
+        <p>The site isn’t directed at children and doesn’t knowingly collect information from anyone.</p>
+
+        <h2>Changes and contact</h2>
+        <p>
+          Changes to this policy are published on this page and in the
+          <a href="https://github.com/waleedrizwan/market-watch-oss" rel="noopener">source repository</a>, where every
+          revision is visible. For questions, open an issue on that repository.
+        </p>
+      </main>
+
+      <footer class="footer">
+        <nav aria-label="Footer">
+          <a href="/">Dashboard</a>
+          <a href="https://github.com/waleedrizwan/market-watch-oss" rel="noopener">Source code (MIT)</a>
+        </nav>
+      </footer>
+    </div>
+  </body>
+</html>
